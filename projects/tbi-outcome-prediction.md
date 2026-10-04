@@ -138,6 +138,26 @@ Random Forest and XGBoost showed higher discrimination than logistic
 regression. However, XGBoost did not demonstrate a clear advantage over Random
 Forest despite its additional modelling complexity.
 
+### Discrimination
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="../assets/tbi/roc_clinical.png" alt="ROC curves for clinical models">
+    </td>
+    <td width="50%">
+      <img src="../assets/tbi/roc_clinical_imaging.png" alt="ROC curves for clinical plus imaging models">
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Clinical predictors</b></td>
+    <td align="center"><b>Clinical + imaging predictors</b></td>
+  </tr>
+</table>
+
+The tree-based models demonstrated higher discrimination than logistic
+regression, while the difference between Random Forest and XGBoost was small.
+
 ---
 
 ## How much did imaging add?
@@ -187,12 +207,36 @@ These point estimates were descriptively close to ideal calibration
 (intercept 0, slope 1), although they were obtained from a single held-out
 cohort and should not be interpreted as evidence of external calibration.
 
+<table>
+  <tr>
+    <td width="50%">
+      <img src="../assets/tbi/calibration_clinical.png" alt="Calibration curves for clinical models">
+    </td>
+    <td width="50%">
+      <img src="../assets/tbi/calibration_clinical_imaging.png" alt="Calibration curves for clinical plus imaging models">
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Clinical predictors</b></td>
+    <td align="center"><b>Clinical + imaging predictors</b></td>
+  </tr>
+</table>
+
+The dashed diagonal represents perfect calibration. These curves complement the
+numerical calibration estimates by showing agreement between predicted
+probabilities and observed outcome frequencies across the range of predicted
+risk.
+
 ---
 
 # What information did the model use?
 
 SHAP analysis was performed on the clinical + imaging Random Forest to examine
 model behaviour.
+
+### Global predictor importance
+
+![Global SHAP predictor importance](../assets/tbi/shap_feature_importance.png)
 
 The most influential predictors were:
 
@@ -208,6 +252,30 @@ than any individual imaging variable.
 
 Lower GCS, bilateral pupil non-reactivity and increasing age generally shifted
 model predictions toward unfavourable outcome.
+
+### Direction of predictor contributions
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="../assets/tbi/shap_gcs.png" alt="Relationship between Glasgow Coma Scale and model contribution">
+    </td>
+    <td width="50%">
+      <img src="../assets/tbi/shap_age.png" alt="Relationship between age and model contribution">
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Glasgow Coma Scale</b></td>
+    <td align="center"><b>Age at injury</b></td>
+  </tr>
+</table>
+
+Lower GCS values generally shifted predictions toward unfavourable outcome,
+whereas higher GCS values shifted predictions away from unfavourable outcome.
+Increasing age generally shifted predictions toward unfavourable outcome.
+
+The apparent relationships should not be interpreted as validated clinical
+thresholds or causal effects.
 
 These relationships were clinically coherent, but SHAP values describe the
 behaviour of the fitted model and **must not be interpreted as causal effects**.
