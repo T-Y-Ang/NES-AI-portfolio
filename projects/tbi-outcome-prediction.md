@@ -24,6 +24,28 @@ The outcome was defined using the Glasgow Outcome Scale (GOS):
 
 ---
 
+### Data source & original study
+
+This project is a secondary prognostic modelling analysis of data from the
+**Global Neurosurgical Study-1 (GNS-I)**, a prospective multinational cohort
+of patients with traumatic brain injury recruited across 100 hospitals in
+29 countries.
+
+The original GNS-I study investigated variation in traumatic brain injury
+characteristics and outcomes across Human Development Index strata. The present
+project asks a separate question: whether information available during early
+clinical assessment can be used to predict 90-day functional outcome.
+
+**Original study:**  
+Nugent JG, Tan H, Stedelin B, et al. *Traumatic brain injury outcomes across
+human development index strata in 29 countries.* Nature Medicine. 2026.  
+[View the original publication →](https://doi.org/10.1038/s41591-026-04600-6)
+
+**GNS-I data and original analysis repository:**  
+[View the GNS-I repository →](https://github.com/jgnugent/GNS-I-Analysis)
+
+---
+
 ## Why this question matters
 
 Early prognostication after traumatic brain injury is difficult. Clinicians
