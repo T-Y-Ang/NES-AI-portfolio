@@ -30,6 +30,7 @@ assessment alone.
 
 **Data source:** Global Neurosurgical Study-1 (GNS-I)  
 [Original Nature Medicine study →](https://doi.org/10.1038/s41591-026-04600-6)
+
 [View project showcase →](projects/tbi-outcome-prediction.md)
 
 ### Key findings
