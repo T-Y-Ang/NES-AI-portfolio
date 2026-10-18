@@ -20,43 +20,28 @@ The emphasis is not only on model performance, but on clinical question formulat
 
 **Status: Completed**
 
-A prognostic machine-learning study using the multinational GNS-I traumatic
-brain injury cohort.
+A prognostic machine-learning study using the multinational GNS-I traumatic brain injury cohort.
 
-The project examines whether information available during early assessment can
-predict unfavourable functional outcome at 90 days, and whether structured
-imaging findings provide additional prognostic information beyond clinical
-assessment alone.
+The project examines whether information available during early assessment can predict unfavourable functional outcome at 90 days, and whether structured imaging findings provide additional prognostic information beyond clinical assessment alone.
 
 **Data source:** Global Neurosurgical Study-1 (GNS-I)  
 [Original Nature Medicine study →](https://doi.org/10.1038/s41591-026-04600-6)
 
 ### Key findings
 
-- Early clinical information provided useful discrimination for 90-day
-  functional outcome.
-- Random Forest and XGBoost demonstrated higher discrimination than the
-  logistic-regression baseline.
-- The clinical + imaging Random Forest achieved a held-out ROC-AUC of **0.854**,
-  average precision of **0.706**, and Brier score of **0.114**.
-- Adding imaging information produced relatively modest improvements in
-  discrimination.
-- Glasgow Coma Scale, pupil reactivity and age were the most influential
-  predictors in the interpreted Random Forest model.
+- Early clinical information provided useful discrimination for 90-day functional outcome.
+- Random Forest and XGBoost demonstrated higher discrimination than the logistic-regression baseline.
+- The clinical + imaging Random Forest achieved a held-out ROC-AUC of **0.854**, average precision of **0.706**, and Brier score of **0.114**.
+- Adding imaging information produced relatively modest improvements in discrimination.
+- Glasgow Coma Scale, pupil reactivity and age were the most influential predictors in the interpreted Random Forest model.
 
 ### Model Performance
 
 ![TBI model discrimination comparison](assets/tbi/model_performance_comparison.png)
 
-*Comparison of logistic regression, Random Forest and XGBoost models
-using clinical-only and clinical-plus-imaging predictors. Points represent
-held-out ROC-AUC, with 95% bootstrap confidence intervals from 2,000
-resamples (n = 362). The addition of imaging information produced
-relatively modest improvements in discrimination.*
+*Comparison of held-out ROC-AUC across three model families using clinical-only and clinical-plus-imaging predictors. Adding imaging provided relatively modest improvements in discrimination.*
 
 **[View the TBI project showcase →](projects/tbi-outcome-prediction.md)**
-
----
 
 ---
 
@@ -96,8 +81,7 @@ This case illustrates an important limitation of automated medical-image segment
 
 ## Portfolio approach
 
-These projects are developed around clinically relevant questions rather than
-algorithm selection alone.
+These projects are developed around clinically relevant questions rather than algorithm selection alone.
 
 Across the portfolio, I aim to consider:
 
@@ -111,8 +95,7 @@ Across the portfolio, I aim to consider:
 - the distinction between internal model performance and clinical
   generalisability.
 
-The projects are intended as educational and research work and should not be
-interpreted as clinically validated decision-support tools.
+The projects are intended as educational and research work and should not be interpreted as clinically validated decision-support tools.
 
 ---
 
