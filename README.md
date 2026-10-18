@@ -66,6 +66,16 @@ Using the BraTS 2024 GLI dataset, the project explores multimodal MRI preprocess
 
 The study illustrates the importance of evaluating medical-imaging models beyond aggregate accuracy, particularly when considering their potential clinical relevance.
 
+### Clinical Failure Analysis — Anatomical Interpretation
+
+![Held-out postoperative glioma MRI case illustrating reference anatomy and a potential annotation discrepancy](https://raw.githubusercontent.com/T-Y-Ang/glioma-mri-segmentation/main/outputs/figures/held_out_test_worst_case_reference_anatomy.png)
+
+*Representative held-out test case examined during anatomical failure analysis. The model's resection-cavity Dice score deteriorated markedly following post-processing (0.5345 to 0.0046). Review of the MRI and reference segmentation raised the possibility of annotation ambiguity, although an annotation error has not been independently confirmed.*
+
+This case illustrates an important limitation of automated medical-image segmentation: quantitative performance metrics must be interpreted alongside the underlying anatomy and the quality of reference annotations.
+
+[View the full anatomical failure analysis and research report →](https://github.com/T-Y-Ang/glioma-mri-segmentation/blob/main/reports/glioma_segmentation_report.md)
+
 **[View the glioma MRI segmentation repository →](https://github.com/T-Y-Ang/glioma-mri-segmentation)**
 
 **[Read the full research report →](https://github.com/T-Y-Ang/glioma-mri-segmentation/blob/main/reports/glioma_segmentation_report.md)**
