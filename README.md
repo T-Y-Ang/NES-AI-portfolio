@@ -10,7 +10,7 @@ The emphasis is not only on model performance, but on clinical question formulat
 | Project | Clinical question | Methods | Status |
 |---|---|---|---|
 | **Traumatic Brain Injury Outcome Prediction** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
-| **Glioma MRI Segmentation** | Can deep learning identify and segment glioma components on multimodal MRI? | Medical image processing, 3D deep learning, segmentation | **In development** |
+| **Glioma MRI Segmentation** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
 | **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Planned** |
 | **Intracranial Pressure Crisis Forecasting** | Can physiological time-series data provide early warning of intracranial hypertension? | Time-series analysis, machine learning, deep learning | **Future project** |
 
@@ -48,6 +48,30 @@ assessment alone.
 
 ---
 
+## Project 2 — Glioma MRI Segmentation
+
+**Status: Completed**
+
+A deep-learning study investigating automated segmentation of postoperative glioma MRI using a multilabel three-dimensional U-Net.
+
+Using the BraTS 2024 GLI dataset, the project explores multimodal MRI preprocessing, segmentation of tumour-related regions, model development and independent evaluation. Particular attention was given to resection-cavity segmentation, which presents challenges in postoperative neuro-oncological imaging.
+
+### Key findings
+
+- The selected model was evaluated on **198 held-out MRI examinations from 92 subjects**, with subject-level separation from the development cohorts.
+- Baseline macro-average Dice across four segmentation regions was **0.6525**, increasing to **0.6630** following validation-informed resection-cavity post-processing.
+- Among **157 examinations containing a reference resection cavity**, mean resection-cavity Dice improved from **0.5221 to 0.5638**.
+- The mean paired improvement was **+0.0417** (95% subject-clustered bootstrap confidence interval: **+0.0227 to +0.0625**).
+- Anatomical failure-case analysis identified important limitations, including deterioration in individual cases despite improved average performance.
+
+The study illustrates the importance of evaluating medical-imaging models beyond aggregate accuracy, particularly when considering their potential clinical relevance.
+
+**[View the glioma MRI segmentation repository →](https://github.com/T-Y-Ang/glioma-mri-segmentation)**
+
+**[Read the full research report →](https://github.com/T-Y-Ang/glioma-mri-segmentation/blob/main/reports/glioma_segmentation_report.md)**
+
+---
+
 ## Portfolio approach
 
 These projects are developed around clinically relevant questions rather than
@@ -70,15 +94,10 @@ interpreted as clinically validated decision-support tools.
 
 ---
 
-## Current development
+## Current Development
 
-The next project focuses on **glioma segmentation from MRI**, extending the
-portfolio from structured clinical prediction into medical imaging and deep
-learning.
+With the traumatic brain injury outcome prediction and glioma MRI segmentation studies completed, the next project will investigate **automated seizure detection from EEG recordings**.
 
-This will explore preprocessing of multimodal MRI, three-dimensional tumour
-segmentation, quantitative evaluation and visualisation of predicted tumour
-regions.
+This project will extend the portfolio into physiological signal processing and time-series deep learning, with an emphasis on clinically meaningful evaluation, subject-level data separation and model generalisability.
 
-Future projects will extend the portfolio into EEG signal analysis and
-physiological time-series modelling.
+Future work may also explore intracranial pressure crisis forecasting and other applications of computational methods to neurosurgical research.
