@@ -51,7 +51,7 @@ The project examines whether information available during early assessment can p
 
 A deep-learning study investigating automated segmentation of postoperative glioma MRI using a multilabel three-dimensional U-Net.
 
-Using the BraTS 2024 GLI dataset, the project explores multimodal MRI preprocessing, segmentation of tumour-related regions, model development and independent evaluation. Particular attention was given to resection-cavity segmentation, which presents challenges in postoperative neuro-oncological imaging.
+Using the BraTS 2024 GLI dataset, the project investigates multimodal MRI preprocessing, segmentation of postoperative tumour-related regions, model development, and evaluation on a held-out test cohort with subject-level separation. Particular attention was given to resection-cavity segmentation, which presents challenges in postoperative neuro-oncological imaging.
 
 ### Key findings
 
@@ -71,11 +71,13 @@ The study illustrates the importance of evaluating medical-imaging models beyond
 
 This case illustrates an important limitation of automated medical-image segmentation: quantitative performance metrics must be interpreted alongside the underlying anatomy and the quality of reference annotations.
 
-[View the full anatomical failure analysis and research report →](https://github.com/T-Y-Ang/glioma-mri-segmentation/blob/main/reports/glioma_segmentation_report.md)
+### Project Resources
 
-**[View the glioma MRI segmentation repository →](https://github.com/T-Y-Ang/glioma-mri-segmentation)**
+**[Read the Glioma MRI Segmentation project overview →](projects/glioma-mri-segmentation.md)**
 
-**[Read the full research report →](https://github.com/T-Y-Ang/glioma-mri-segmentation/blob/main/reports/glioma_segmentation_report.md)**
+[Read the full scientific report →](https://github.com/T-Y-Ang/glioma-mri-segmentation/blob/main/reports/glioma_segmentation_report.md)
+
+[Explore the public GitHub repository →](https://github.com/T-Y-Ang/glioma-mri-segmentation)
 
 ---
 
