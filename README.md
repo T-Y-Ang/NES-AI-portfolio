@@ -41,7 +41,11 @@ The project examines whether information available during early assessment can p
 
 *Comparison of held-out ROC-AUC across three model families using clinical-only and clinical-plus-imaging predictors. Adding imaging provided relatively modest improvements in discrimination.*
 
+### Project Resources
+
 **[View the TBI project showcase →](projects/tbi-outcome-prediction.md)**
+
+*The underlying research repository is maintained privately while the work is under consideration for academic dissemination.*
 
 ---
 
