@@ -44,7 +44,19 @@ assessment alone.
 - Glasgow Coma Scale, pupil reactivity and age were the most influential
   predictors in the interpreted Random Forest model.
 
+### Model Performance
+
+![TBI model discrimination comparison](assets/tbi/model_performance_comparison.png)
+
+*Comparison of logistic regression, Random Forest and XGBoost models
+using clinical-only and clinical-plus-imaging predictors. Points represent
+held-out ROC-AUC, with 95% bootstrap confidence intervals from 2,000
+resamples (n = 362). The addition of imaging information produced
+relatively modest improvements in discrimination.*
+
 **[View the TBI project showcase →](projects/tbi-outcome-prediction.md)**
+
+---
 
 ---
 
