@@ -1,7 +1,11 @@
 ### Neurosurgery & Artificial Intelligence Portfolio
-I am a clinician currently working in neurosurgery with interests in neuroscience, medical technology and the application of machine learning to clinical problems.
-This portfolio documents a series of projects exploring how computational methods can be applied to prediction, medical imaging and physiological data in neurosurgery.
-The emphasis is not only on model performance, but on clinical question formulation, methodological validity, interpretability and the limitations involved in translating machine-learning models into clinical practice.
+
+I am a clinician currently working in neurosurgery with interests in neuroscience, medical technology, machine learning, and computational modelling.
+
+This portfolio documents projects investigating how computational methods can be applied to clinical prediction, medical imaging, cerebrovascular haemodynamics, and spinal biomechanics.
+
+The emphasis is not only on predictive performance or simulation results, but also on clinical question formulation, methodological validity, numerical verification, interpretability, and the limitations involved in translating computational research into clinical practice.
+
 
 ---
 
@@ -11,8 +15,11 @@ The emphasis is not only on model performance, but on clinical question formulat
 |---|---|---|---|
 | **Traumatic Brain Injury Outcome Prediction** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
 | **Glioma MRI Segmentation** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
-| **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Planned** |
+| **Intracranial Aneurysm CFD** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **In progress — preliminary simulations completed** |
+| **Spinal Biomechanics FEA** | How does structural damage or surgical bone removal affect mechanical loading and deformation? | Finite element analysis, stress and strain modelling | **Planned** |
+| **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Future project** |
 | **Intracranial Pressure Crisis Forecasting** | Can physiological time-series data provide early warning of intracranial hypertension? | Time-series analysis, machine learning, deep learning | **Future project** |
+
 
 ---
 
@@ -85,21 +92,61 @@ This case illustrates an important limitation of automated medical-image segment
 
 ---
 
-## Portfolio approach
+## Project 3 — Intracranial Aneurysm Haemodynamics (CFD)
 
-These projects are developed around clinically relevant questions rather than algorithm selection alone.
+**Status: In Progress — Preliminary Simulations Completed**
 
-Across the portfolio, I aim to consider:
+A computational fluid dynamics study investigating blood-flow behaviour within intracranial aneurysms using synthetic and patient-derived vascular geometries.
+
+The project uses OpenFOAM, Gmsh and ParaView to investigate velocity distributions, intra-aneurysmal flow patterns, vorticity and wall shear stress.
+
+### Current Progress
+
+- Constructed and meshed a synthetic three-dimensional sidewall aneurysm.
+- Completed a preliminary steady-state laminar-flow simulation, including solver convergence and global flow-balance checks.
+- Generated velocity, streamline, intra-aneurysmal recirculation and preliminary wall shear stress visualisations.
+- Extended the workflow to a patient-derived left middle cerebral artery bifurcation aneurysm from the publicly available Royal Brisbane TOF-MRA Intracranial Aneurysm Database (OpenNeuro ds005096).
+- Generated a patient-derived computational mesh and completed an initial CFD simulation, with velocity streamline and vorticity visualisations.
+
+### Patient-Derived Aneurysm — Preliminary Flow Visualisation
+
+![Patient-derived MCA aneurysm CFD velocity streamlines](https://raw.githubusercontent.com/T-Y-Ang/aneurysm-cfd/main/outputs/figures/patient_aneurysm_streamlines.png)
+
+*Preliminary velocity-coloured streamlines through a patient-derived left MCA bifurcation aneurysm. The simulation illustrates complex flow trajectories within the aneurysm and adjoining arterial branches.*
+
+### Current Limitations
+
+The simulations use simplified, steady-state flow conditions and rigid vessel walls. The patient-derived model has unresolved mesh-quality issues, and its flow boundary conditions have not been validated against patient-specific physiological measurements.
+
+Further mesh refinement, numerical verification, wall shear stress analysis and sensitivity studies are required before quantitative haemodynamic interpretation.
+
+**These exploratory simulations do not provide clinically validated predictions of aneurysm rupture risk.**
+
+### Project Resources
+
+**[Explore the Intracranial Aneurysm CFD repository →](https://github.com/T-Y-Ang/aneurysm-cfd)**
+
+---
+
+## Portfolio Approach
+
+These projects are developed around clinically relevant questions rather than algorithm or software selection alone.
+
+Across machine-learning projects, I aim to consider:
 
 - appropriate clinical question formulation;
-- data quality and missing information;
-- prevention of information leakage;
+- data quality, missing information and information leakage;
 - comparison with interpretable baseline models;
-- discrimination and calibration;
-- model interpretability;
-- clinical and methodological limitations; and
-- the distinction between internal model performance and clinical
-  generalisability.
+- discrimination, calibration and model interpretability;
+- rigorous validation and generalisability.
+
+For computational simulation projects, additional considerations include:
+
+- anatomical geometry and modelling assumptions;
+- material properties and boundary conditions;
+- mesh quality and numerical convergence;
+- reproducibility and sensitivity analysis;
+- the distinction between simulated physical behaviour and clinically validated predictions.
 
 The projects are intended as educational and research work and should not be interpreted as clinically validated decision-support tools.
 
@@ -107,8 +154,12 @@ The projects are intended as educational and research work and should not be int
 
 ## Current Development
 
-With the traumatic brain injury outcome prediction and glioma MRI segmentation studies completed, the next project will investigate **automated seizure detection from EEG recordings**.
+With the traumatic brain injury outcome prediction and glioma MRI segmentation studies completed, current development focuses on **intracranial aneurysm computational fluid dynamics**, followed by **spinal biomechanics using finite element analysis**.
 
-This project will extend the portfolio into physiological signal processing and time-series deep learning, with an emphasis on clinically meaningful evaluation, subject-level data separation and model generalisability.
+The aneurysm CFD project has progressed from synthetic geometry and preliminary haemodynamic simulation to patient-derived vascular modelling. Ongoing work focuses on numerical verification, mesh refinement and interpretation of simulated flow behaviour.
 
-Future work may also explore intracranial pressure crisis forecasting and other applications of computational methods to neurosurgical research.
+The planned spinal FEA project will investigate how structural defects and simulated surgical bone removal affect mechanical loading, stress distribution and deformation in simplified spinal models.
+
+The immediate objective is to develop reproducible introductory demonstrations of both CFD and FEA, supported by clear scientific visualisations and transparent documentation.
+
+Future projects may return to EEG seizure detection, intracranial pressure forecasting and other applications of computational methods to neurosurgical research.
