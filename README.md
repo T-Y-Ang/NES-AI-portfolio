@@ -15,8 +15,8 @@ The emphasis is not only on predictive performance or simulation results, but al
 |---|---|---|---|
 | **Traumatic Brain Injury Outcome Prediction** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
 | **Glioma MRI Segmentation** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
-| **Intracranial Aneurysm CFD** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **In progress — preliminary simulations completed** |
-| **Spinal Biomechanics FEA** | How does structural damage or surgical bone removal affect mechanical loading and deformation? | Finite element analysis, stress and strain modelling | **Planned** |
+| **Intracranial Aneurysm CFD** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **Exploratory — preliminary results; paused** |
+| **Spinal Biomechanics FEA** | How does structural damage or surgical bone removal affect mechanical loading and deformation? | Finite element analysis, stress and strain modelling | **In development** |
 | **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Future project** |
 | **Intracranial Pressure Crisis Forecasting** | Can physiological time-series data provide early warning of intracranial hypertension? | Time-series analysis, machine learning, deep learning | **Future project** |
 
@@ -94,37 +94,44 @@ This case illustrates an important limitation of automated medical-image segment
 
 ## Project 3 — Intracranial Aneurysm Haemodynamics (CFD)
 
-**Status: In Progress — Preliminary Simulations Completed**
+**Status: Exploratory Study — Preliminary Results; Temporarily Paused**
 
 A computational fluid dynamics study investigating blood-flow behaviour within intracranial aneurysms using synthetic and patient-derived vascular geometries.
 
-The project uses OpenFOAM, Gmsh and ParaView to investigate velocity distributions, intra-aneurysmal flow patterns, vorticity and wall shear stress.
+The project progressed from synthetic sidewall aneurysm modelling to a patient-derived left middle cerebral artery aneurysm from the publicly available Royal Brisbane TOF-MRA Intracranial Aneurysm dataset (OpenNeuro ds005096).
 
-### Current Progress
+### Key achievements
 
-- Constructed and meshed a synthetic three-dimensional sidewall aneurysm.
-- Completed a preliminary steady-state laminar-flow simulation, including solver convergence and global flow-balance checks.
-- Generated velocity, streamline, intra-aneurysmal recirculation and preliminary wall shear stress visualisations.
-- Extended the workflow to a patient-derived left middle cerebral artery bifurcation aneurysm from the publicly available Royal Brisbane TOF-MRA Intracranial Aneurysm Database (OpenNeuro ds005096).
-- Generated a patient-derived computational mesh and completed an initial CFD simulation, with velocity streamline and vorticity visualisations.
+- Developed a computational workflow involving vascular geometry processing, tetrahedral meshing, OpenFOAM simulation and ParaView visualisation.
+- Generated a patient-derived baseline mesh containing **117,490 tetrahedral elements**.
+- Completed a preliminary steady-state laminar-flow simulation and verified global mass conservation.
+- Visualised velocity streamlines, vorticity and preliminary wall shear stress.
+- Generated a refined mesh containing **221,743 tetrahedral elements** for subsequent numerical comparison.
+- Identified unresolved outlet-geometry and mesh-quality issues requiring correction before further physiological interpretation.
 
 ### Patient-Derived Aneurysm — Preliminary Flow Visualisation
 
 ![Patient-derived MCA aneurysm CFD velocity streamlines](https://raw.githubusercontent.com/T-Y-Ang/aneurysm-cfd/main/outputs/figures/patient_aneurysm_streamlines.png)
 
-*Preliminary velocity-coloured streamlines through a patient-derived left MCA bifurcation aneurysm. The simulation illustrates complex flow trajectories within the aneurysm and adjoining arterial branches.*
+*Preliminary velocity streamlines from the patient-derived left MCA aneurysm simulation. Results have not undergone mesh-independence testing, and an unresolved outlet-geometry concern may influence the computed flow distribution.*
 
-### Current Limitations
+### Current limitations
 
-The simulations use simplified, steady-state flow conditions and rigid vessel walls. The patient-derived model has unresolved mesh-quality issues, and its flow boundary conditions have not been validated against patient-specific physiological measurements.
+Although the baseline simulation was completed and global mass conservation was demonstrated, **mesh independence and physiological validity have not been established**.
 
-Further mesh refinement, numerical verification, wall shear stress analysis and sensitivity studies are required before quantitative haemodynamic interpretation.
+The computational model uses simplified steady-state boundary conditions and rigid vessel walls. Both baseline and refined meshes retain quality warnings, and a possible residual surface-cap fragment may restrict one vessel outlet.
 
-**These exploratory simulations do not provide clinically validated predictions of aneurysm rupture risk.**
+The refined-mesh flow simulation and formal sensitivity analyses remain outstanding.
 
-### Project Resources
+**These results are exploratory and cannot be used to predict aneurysm rupture risk or guide clinical management.**
 
-**[Explore the Intracranial Aneurysm CFD repository →](https://github.com/T-Y-Ang/aneurysm-cfd)**
+### Project resources
+
+**[Read the Aneurysm CFD project report →](projects/aneurysm-cfd.md)**
+
+[Read the full interim technical report →](https://github.com/T-Y-Ang/aneurysm-cfd/blob/main/docs/patient_mca_cfd_interim_report.md)
+
+[Explore the public GitHub repository →](https://github.com/T-Y-Ang/aneurysm-cfd)
 
 ---
 
@@ -154,12 +161,12 @@ The projects are intended as educational and research work and should not be int
 
 ## Current Development
 
-With the traumatic brain injury outcome prediction and glioma MRI segmentation studies completed, current development focuses on **intracranial aneurysm computational fluid dynamics**, followed by **spinal biomechanics using finite element analysis**.
+With the traumatic brain injury outcome prediction and glioma MRI segmentation studies completed, and an exploratory patient-derived aneurysm CFD demonstration documented, current development is prioritising **spinal biomechanics using finite element analysis (FEA)**.
 
-The aneurysm CFD project has progressed from synthetic geometry and preliminary haemodynamic simulation to patient-derived vascular modelling. Ongoing work focuses on numerical verification, mesh refinement and interpretation of simulated flow behaviour.
+The spinal FEA project aims to develop a reproducible mechanical simulation using CT-derived spinal anatomy, investigating stress distribution and deformation under applied loading. Potential applications include studying structural defects, spinal fractures and simulated surgical bone removal.
 
-The planned spinal FEA project will investigate how structural defects and simulated surgical bone removal affect mechanical loading, stress distribution and deformation in simplified spinal models.
+The aneurysm CFD project is temporarily paused after completing its baseline simulation and preliminary haemodynamic visualisations. Further work will be required to resolve outlet-geometry uncertainty, improve mesh quality and establish numerical reliability.
 
-The immediate objective is to develop reproducible introductory demonstrations of both CFD and FEA, supported by clear scientific visualisations and transparent documentation.
+The immediate objective is to complete a defensible spinal FEA demonstration while preserving the aneurysm CFD workflow for subsequent development.
 
 Future projects may return to EEG seizure detection, intracranial pressure forecasting and other applications of computational methods to neurosurgical research.
