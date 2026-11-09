@@ -154,6 +154,10 @@ The project uses an existing L1–L2 finite element mesh obtained from a publicl
 
 ### Vertebra–Disc Interface Investigation
 
+![L1–L2 spinal FEA anatomical orientation](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/spinal_fea_anatomical_orientation.png)
+
+*Anatomical orientation of the L1–L2 finite element model, providing spatial context for the vertebra–disc interface investigation.*
+
 ![Rejected vertebra–disc interface tie nodes](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/rejected_tie_nodes_by_interface.png)
 
 *Distribution of rejected tie nodes at the L1–disc and disc–L2 interfaces following adjustment of the tie tolerance to 0.05 mm. Residual failures were concentrated at the peripheral disc interfaces.*
