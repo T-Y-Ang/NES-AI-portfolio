@@ -16,7 +16,7 @@ The emphasis is not only on predictive performance or simulation results, but al
 | **Traumatic Brain Injury Outcome Prediction** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
 | **Glioma MRI Segmentation** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
 | **Intracranial Aneurysm CFD** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **Exploratory — preliminary results; paused** |
-| **Spinal Biomechanics FEA** | How does structural damage or surgical bone removal affect mechanical loading and deformation? | Finite element analysis, stress and strain modelling | **In development** |
+| **Lumbar Spine Finite Element Analysis** | How do vertebra–disc interface constraints influence predicted spinal stiffness under axial compression? | CalculiX, Python, tetrahedral FEA, interface sensitivity analysis | **Exploratory — baseline simulations completed; validation ongoing** |
 | **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Future project** |
 | **Intracranial Pressure Crisis Forecasting** | Can physiological time-series data provide early warning of intracranial hypertension? | Time-series analysis, machine learning, deep learning | **Future project** |
 
@@ -135,6 +135,49 @@ The refined-mesh flow simulation and formal sensitivity analyses remain outstand
 
 ---
 
+## Project 4 — Lumbar Spine Finite Element Analysis
+
+**Status: Exploratory Study — Baseline Simulations Completed; Mechanical Validation Ongoing**
+
+A computational biomechanics study investigating the mechanical behaviour of the lumbar spine under simplified axial compression, with particular emphasis on vertebra–disc interface modelling.
+
+The project uses an existing L1–L2 finite element mesh obtained from a publicly available Zenodo dataset. The anatomical model contains two vertebral bodies and an intervening intervertebral disc.
+
+### Key achievements
+
+- Converted an existing MED-format anatomical mesh into a CalculiX-compatible finite element model containing **17,513 nodes and 62,247 tetrahedral elements**.
+- Completed two axial compression simulations using simplified linear-elastic material properties and a prescribed **0.1 mm displacement**.
+- Verified approximate global axial force equilibrium in both simulations.
+- Investigated the effect of vertebra–disc tie tolerance on mechanical response.
+- Identified a **40.07% increase in calculated axial stiffness** when the tie tolerance was increased to 0.05 mm.
+- Investigated the geometry and topology of the vertebra–disc interfaces to understand residual tie-constraint failures.
+
+### Vertebra–Disc Interface Investigation
+
+![Rejected vertebra–disc interface tie nodes](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/rejected_tie_nodes_by_interface.png)
+
+*Distribution of rejected tie nodes at the L1–disc and disc–L2 interfaces following adjustment of the tie tolerance to 0.05 mm. Residual failures were concentrated at the peripheral disc interfaces.*
+
+### Current limitations
+
+Although both simulations completed successfully and demonstrated approximate global axial force equilibrium, **biomechanical validity and mesh convergence have not been established**.
+
+The model uses simplified material properties, first-order tetrahedral elements and idealised loading conditions. Its predicted mechanical stiffness and stresses remain sensitive to interface constraint assumptions.
+
+The remaining peripheral tie failures require further investigation before interpreting the model as a reliable representation of physiological spinal loading.
+
+**These results demonstrate computational feasibility and interface sensitivity, not clinically validated spinal biomechanics.**
+
+### Project resources
+
+**[Read the Spinal FEA project report →](projects/spinal-fea.md)**
+
+[Read the interface methodology report →](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/interface_methodology.md)
+
+[Explore the public GitHub repository →](https://github.com/T-Y-Ang/spinal-fea)
+
+---
+
 ## Portfolio Approach
 
 These projects are developed around clinically relevant questions rather than algorithm or software selection alone.
@@ -161,12 +204,18 @@ The projects are intended as educational and research work and should not be int
 
 ## Current Development
 
-With the traumatic brain injury outcome prediction and glioma MRI segmentation studies completed, and an exploratory patient-derived aneurysm CFD demonstration documented, current development is prioritising **spinal biomechanics using finite element analysis (FEA)**.
+The traumatic brain injury outcome prediction and glioma MRI segmentation studies are completed. Exploratory computational demonstrations have also been established for intracranial aneurysm haemodynamics and lumbar spinal biomechanics.
 
-The spinal FEA project aims to develop a reproducible mechanical simulation using CT-derived spinal anatomy, investigating stress distribution and deformation under applied loading. Potential applications include studying structural defects, spinal fractures and simulated surgical bone removal.
+**Current development is focused on validating and extending the spinal finite element analysis workflow.**
 
-The aneurysm CFD project is temporarily paused after completing its baseline simulation and preliminary haemodynamic visualisations. Further work will be required to resolve outlet-geometry uncertainty, improve mesh quality and establish numerical reliability.
+The spinal FEA project has progressed from anatomical mesh preparation to successful baseline compression simulations. Subsequent investigations identified substantial sensitivity of predicted axial stiffness to vertebra–disc interface constraints, highlighting the importance of numerical verification before biomechanical interpretation.
 
-The immediate objective is to complete a defensible spinal FEA demonstration while preserving the aneurysm CFD workflow for subsequent development.
+The next priorities are displacement and stress-field visualisation, investigation of interface-related numerical artefacts, and further assessment of mesh and mechanical reliability.
+
+Longer-term objectives include reconstructing pathological vertebral anatomy from publicly available CT datasets and investigating vertebral compression fractures, progressive deformity and potentially the biomechanical consequences of surgical interventions.
+
+The intracranial aneurysm CFD project is temporarily paused after completing its patient-derived baseline simulation and preliminary haemodynamic visualisations. Further work will be required to resolve outlet-geometry uncertainty, improve mesh quality and establish numerical reliability.
 
 Future projects may return to EEG seizure detection, intracranial pressure forecasting and other applications of computational methods to neurosurgical research.
+
+Across these projects, the emphasis remains on reproducible computational workflows, transparent reporting of limitations and the distinction between successful numerical simulations and clinically validated models.
