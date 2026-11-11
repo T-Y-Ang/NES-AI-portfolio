@@ -151,6 +151,9 @@ The project uses an existing L1–L2 finite element mesh obtained from a publicl
 - Investigated the effect of vertebra–disc tie tolerance on mechanical response.
 - Identified a **40.07% increase in calculated axial stiffness** when the tie tolerance was increased to 0.05 mm.
 - Investigated the geometry and topology of the vertebra–disc interfaces to understand residual tie-constraint failures.
+- Developed a Python post-processing workflow to extract nodal displacement vectors and stress tensor components from CalculiX FRD results and convert them into PyVista-compatible datasets.
+- Generated three-dimensional displacement and von Mises stress visualisations, including a cross-sectional investigation of the maximum-stress region.
+- Identified a maximum nodal von Mises stress of **1.579123 MPa** and greatest axial compressive stress (SZZ) of **−1.52658 MPa**, both occurring at node 10200 in the 0.05 mm tie-tolerance simulation.
 
 ### Vertebra–Disc Interface Investigation
 
@@ -161,6 +164,19 @@ The project uses an existing L1–L2 finite element mesh obtained from a publicl
 ![Rejected vertebra–disc interface tie nodes](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/rejected_tie_nodes_by_interface.png)
 
 *Distribution of rejected tie nodes at the L1–disc and disc–L2 interfaces following adjustment of the tie tolerance to 0.05 mm. Residual failures were concentrated at the peripheral disc interfaces.*
+
+### Preliminary Displacement and Stress Analysis
+
+The completed 0.05 mm tie-tolerance simulation was post-processed to investigate displacement and stress distributions across the L1–L2 model.
+
+![L1–L2 spinal FEA cross-sectional von Mises stress distribution](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/baseline_tolerance_005_max_stress_section.png)
+
+*Cross-sectional von Mises stress distribution through the maximum-stress node (10200). The localised stress concentration near a vertebral endplate–disc interface warrants further investigation. The results are preliminary and have not undergone mesh-convergence testing or experimental biomechanical validation.*
+
+The maximum calculated nodal displacement magnitude was **0.132768 mm**, while the maximum von Mises stress was **1.579123 MPa**.
+
+The observed stress concentration may be influenced by local geometry, material assumptions, interface constraints or numerical stress extrapolation. It should not be interpreted as a validated predictor of vertebral failure.
+
 
 ### Current limitations
 
@@ -214,7 +230,9 @@ The traumatic brain injury outcome prediction and glioma MRI segmentation studie
 
 The spinal FEA project has progressed from anatomical mesh preparation to successful baseline compression simulations. Subsequent investigations identified substantial sensitivity of predicted axial stiffness to vertebra–disc interface constraints, highlighting the importance of numerical verification before biomechanical interpretation.
 
-The next priorities are displacement and stress-field visualisation, investigation of interface-related numerical artefacts, and further assessment of mesh and mechanical reliability.
+Initial three-dimensional displacement and von Mises stress visualisations have been completed, including sectional analysis of a localised stress concentration near the vertebral endplate–disc interface.
+
+The next priorities are axial normal stress (SZZ) visualisation, comparative stress-field analysis between the two tie-tolerance configurations, investigation of potential numerical artefacts, and further assessment of mesh convergence and mechanical reliability.
 
 Longer-term objectives include reconstructing pathological vertebral anatomy from publicly available CT datasets and investigating vertebral compression fractures, progressive deformity and potentially the biomechanical consequences of surgical interventions.
 
