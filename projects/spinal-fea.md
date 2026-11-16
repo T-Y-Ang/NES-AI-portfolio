@@ -34,8 +34,8 @@ This project investigates the development of a reproducible spinal FEA workflow,
 | Material model | Homogeneous, isotropic, linear elastic |
 | Mechanical loading | Prescribed 0.1 mm axial compression |
 | Interface modelling | Four surface-based vertebra–disc tie constraints |
-| Completed analysis | Baseline compression simulations, force-equilibrium assessment, interface sensitivity analysis and geometric investigation |
-| Outstanding work | Stress-field visualisation, mesh convergence, interface refinement and biomechanical validation |
+| Completed analysis | Baseline compression simulations, force-equilibrium assessment, interface sensitivity analysis, geometric investigation, and displacement and stress-field visualisation |
+| Outstanding work | Mesh convergence, interface refinement, numerical artefact assessment and biomechanical validation |
 
 ## What I built
 
@@ -60,9 +60,31 @@ A simplified mechanical model was constructed using the following assumptions:
 | Interface constraints | Four surface-based tie constraints |
 | Unit system | N–mm–MPa |
 
-These parameters were selected for an exploratory computational demonstration and do not represent a fully validated physiological spinal model.
+### Rationale for material properties and boundary conditions
+
+The material properties were selected to establish a simplified, reproducible baseline model rather than reproduce the complete mechanical behaviour of a physiological lumbar motion segment.
+
+Published lumbar finite element models commonly distinguish cortical bone, cancellous bone, vertebral endplates, annulus fibrosus and nucleus pulposus, assigning different material properties to each component [1,2].
+
+**Vertebral material properties.** A Young's modulus of 1,000 MPa and Poisson's ratio of 0.30 were assigned uniformly to the vertebral structures. The modulus represents a provisional effective stiffness within a heterogeneous bony structure, rather than a directly measured whole-vertebra property. For comparison, published models have used approximately 100 MPa for cancellous bone and 12,000 MPa for cortical bone [1,2]. The selected Poisson's ratio is consistent with values used for cortical bone in these models, although cancellous bone is often assigned a lower value.
+
+**Intervertebral disc properties.** A Young's modulus of 10 MPa and Poisson's ratio of 0.45 were assigned uniformly to the disc. This simplified representation avoids introducing separate nucleus pulposus and annulus fibrosus material regions during initial workflow development. Published models have used an annulus ground-substance modulus of approximately 4.2 MPa with Poisson's ratio 0.45, while representing the nucleus pulposus using substantially softer or nearly incompressible material formulations [1,2]. Our selected modulus is therefore a provisional modelling assumption rather than a literature-validated effective modulus for the entire disc.
+
+**Boundary conditions and loading.** The inferior L2 surface was fixed in all three translational directions, while a prescribed 0.1 mm inferior displacement was applied to the superior L1 surface. This displacement-controlled configuration provides a reproducible axial compression test and allows effective construct stiffness to be calculated from the resulting reaction force. The displacement magnitude was selected for this numerical demonstration and was not derived from a patient-specific physiological loading measurement.
+
+**Vertebra–disc interfaces.** Four surface-based tie constraints were used to transfer mechanical loading between the vertebrae and disc. This assumes bonded interfaces without relative sliding or separation. The subsequent comparison of default and 0.05 mm tie tolerances was designed to investigate the sensitivity of the numerical solution to interface constraint generation, rather than to identify a physiologically optimal tolerance.
+
+**Unit system.** The N–mm–MPa system was used consistently, with forces expressed in newtons, displacements in millimetres and stresses in N/mm² (equivalent to MPa).
+
+These assumptions are appropriate for an initial computational workflow demonstration but do not establish physiological accuracy. In particular, homogeneous material assignments, idealised interface bonding and the use of first-order tetrahedral elements may influence predicted stiffness and local stress concentrations.
 
 Two simulations were completed to investigate the effect of vertebra–disc tie tolerance on the predicted mechanical response.
+
+**References**
+
+[1] *Development and Kinematic Verification of a Finite Element Model for the Lumbar Spine: Application to Disc Degeneration.* 2013. https://pmc.ncbi.nlm.nih.gov/articles/PMC3591128/
+
+[2] *Development and Validation of a Computationally Efficient Finite Element Model of the Human Lumbar Spine: Application to Disc Degeneration.* 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC7478021/
 
 ## Preliminary computational results
 
@@ -85,6 +107,26 @@ The superior and inferior axial reaction forces were approximately equal and opp
 Effective axial stiffness was calculated by dividing the magnitude of the inferior axial reaction force by the prescribed 0.1 mm displacement.
 
 These checks support preliminary numerical verification but do not establish physiological accuracy.
+
+### Displacement and stress-field visualisation
+
+The 0.05 mm tie-tolerance simulation was post-processed using Python and PyVista to visualise displacement magnitude and von Mises stress across the L1–L2 construct.
+
+![L1–L2 displacement magnitude](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/baseline_tolerance_005_displacement.png)
+
+*Figure 1. Displacement magnitude under prescribed 0.1 mm axial compression. L1 is positioned superiorly, with L2 fixed at its inferior boundary.*
+
+![L1–L2 von Mises stress](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/baseline_tolerance_005_von_mises.png)
+
+*Figure 2. Von Mises stress distribution under axial compression, displayed using a fixed 0–1.6 MPa colour scale.*
+
+![Cross-sectional von Mises stress](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/baseline_tolerance_005_max_stress_section.png)
+
+*Figure 3. Cross-sectional von Mises stress distribution through the X-coordinate of the maximum-stress node (X = 189.187 mm).*
+
+The maximum nodal von Mises stress was approximately **1.579 MPa**, occurring at node 10200. The cross-sectional visualisation demonstrates a localised region of elevated stress near the vertebra–disc interface.
+
+These findings remain exploratory. Local stress concentrations may be influenced by mesh discretisation, material assumptions and interface constraints. They should not be interpreted as validated physiological stress predictions.
 
 ### Vertebra–disc interface sensitivity
 
@@ -117,13 +159,13 @@ All 50 remaining rejected tie nodes occurred on the outer disc interfaces:
 
 ![L1 inferior endplate and rejected tie nodes](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/l1_interface_tie_failures.png)
 
-*Figure 1. Computational interface geometry showing the L1 inferior endplate, inner and outer disc interface surfaces, and 29 rejected tie nodes.*
+*Figure 4. Computational interface geometry showing the L1 inferior endplate, inner and outer disc interface surfaces, and 29 rejected tie nodes.*
 
 ### L2 superior endplate–disc interface
 
 ![L2 superior endplate and rejected tie nodes](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/l2_interface_tie_failures.png)
 
-*Figure 2. Computational interface geometry showing the L2 superior endplate, inner and outer disc interface surfaces, and 21 rejected tie nodes.*
+*Figure 5. Computational interface geometry showing the L2 superior endplate, inner and outer disc interface surfaces, and 21 rejected tie nodes.*
 
 Further geometric investigation found that 10 rejected nodes were outside the XY-projected vertebral endplate footprints, while 40 remained within the projected footprints but exceeded the specified tie tolerance.
 
@@ -157,7 +199,9 @@ The use of first-order tetrahedral elements with a nearly incompressible disc ma
 
 The remaining peripheral tie failures and the sensitivity of axial stiffness to tie tolerance require further investigation.
 
-The next development stage will focus on displacement and stress-field visualisation, assessment of numerical artefacts and further mechanical verification.
+Displacement and von Mises stress-field visualisations have now been completed for the baseline compression model. However, these results remain preliminary because mesh convergence, material-property sensitivity and the influence of interface constraints on local stress concentrations have not been fully evaluated.
+
+The next development stage will focus on mesh convergence testing, assessment of numerical stiffness artefacts, refinement of vertebra–disc interface modelling and sensitivity analysis of the assigned material properties. These investigations will help establish the numerical reliability of the model before extending the workflow to patient-specific pathological anatomy.
 
 A longer-term objective is to reconstruct pathological vertebral anatomy from publicly available CT imaging and investigate vertebral compression-fracture biomechanics.
 
