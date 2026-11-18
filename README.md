@@ -16,7 +16,7 @@ The emphasis is not only on predictive performance or simulation results, but al
 | **Traumatic Brain Injury Outcome Prediction** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
 | **Glioma MRI Segmentation** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
 | **Intracranial Aneurysm CFD** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **Exploratory — preliminary results; paused** |
-| **Lumbar Spine Finite Element Analysis** | How do vertebra–disc interface constraints influence predicted spinal stiffness under axial compression? | CalculiX, Python, tetrahedral FEA, interface sensitivity analysis | **Exploratory — baseline simulations completed; validation ongoing** |
+| **Lumbar Spine Finite Element Analysis** | How do vertebra–disc interface constraints and patient-specific vertebral geometry influence simulated spinal biomechanics? | CalculiX, Python, CT-derived 3D reconstruction, tetrahedral FEA, interface sensitivity analysis | **Exploratory — baseline FEA completed; patient-specific geometry reconstruction ongoing** |
 | **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Future project** |
 | **Intracranial Pressure Crisis Forecasting** | Can physiological time-series data provide early warning of intracranial hypertension? | Time-series analysis, machine learning, deep learning | **Future project** |
 
@@ -137,7 +137,7 @@ The refined-mesh flow simulation and formal sensitivity analyses remain outstand
 
 ## Project 4 — Lumbar Spine Finite Element Analysis
 
-**Status: Exploratory Study — Baseline Simulations Completed; Mechanical Validation Ongoing**
+**Status: Exploratory Study — Baseline FEA Completed; Patient-Specific Vertebral Reconstruction Completed; Disc Geometry Development Ongoing**
 
 A computational biomechanics study investigating the mechanical behaviour of the lumbar spine under simplified axial compression, with particular emphasis on vertebra–disc interface modelling.
 
@@ -177,6 +177,63 @@ The maximum calculated nodal displacement magnitude was **0.132768 mm**, while t
 
 The observed stress concentration may be influenced by local geometry, material assumptions, interface constraints or numerical stress extrapolation. It should not be interpreted as a validated predictor of vertebral failure.
 
+### Patient-Specific Vertebral Reconstruction — VerSe004
+
+The project has progressed to patient-specific anatomical reconstruction using the publicly available VerSe 2019 CT dataset.
+
+Case `sub-verse004`, demonstrating L1 vertebral compression deformity, was selected for an exploratory T12–L1–L2 model.
+
+The aim is to reconstruct the pathological vertebral anatomy and develop anatomically informed intervertebral discs before proceeding to volumetric meshing and mechanical simulation.
+
+#### CT-Derived Vertebral Reconstruction
+
+Three-dimensional surfaces of T12, L1 and L2 were reconstructed from the CT segmentation data.
+
+![CT-derived T12–L1–L2 vertebral reconstruction](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/verse004_t12_l1_l2_alignment.png)
+
+*Reconstructed T12, L1 and L2 vertebrae demonstrating their relative anatomical alignment. These surfaces form the basis of the planned patient-specific FEA model.*
+
+#### Endplate Identification and Disc-Space Investigation
+
+Initial endplate identification using surface-normal filtering revealed important limitations when applied to curved and pathological vertebral anatomy.
+
+Further investigation demonstrated that filtered surface patches could exclude relevant portions of the inferior L1 endplate.
+
+![L1 inferior endplate selection compared with complete vertebral surface](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/verse004_l1_inferior_selection_vs_full_surface.png)
+
+*Comparison of the initially selected inferior endplate region against the complete reconstructed vertebral surface, illustrating the limitations of geometric filtering.*
+
+Vertical ray tracing was subsequently used to investigate separation between the complete L1 and L2 surfaces.
+
+Across 400 sampling locations, 286 yielded positive gap measurements. The median estimated separation was **8.42 mm**, but anomalous measurements reached **44.61 mm**, highlighting the need to distinguish anatomically relevant endplate intersections from unintended surface intersections.
+
+![L1–L2 complete-surface gap map](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/verse004_l1_l2_complete_surface_gap_map.png)
+
+*Spatial distribution of estimated vertical separation between the reconstructed vertebral surfaces. These measurements are preliminary geometric estimates, not validated anatomical disc heights.*
+
+#### Anatomically Informed Disc Reconstruction
+
+Initial elliptical disc footprints were investigated but were considered insufficient to represent the reconstructed vertebral anatomy.
+
+The revised approach is to derive a smoothed, kidney-shaped disc footprint from the CT-derived vertebral body contours, incorporating a modest circumferential bulge as an explicit modelling assumption.
+
+The disc geometry has not yet been completed.
+
+#### Methodological Lessons
+
+This investigation illustrates several challenges in patient-specific computational biomechanics:
+
+- Geometrically closest surfaces may not correspond to opposing vertebral endplates.
+- Surface-normal and connected-component filtering can exclude anatomically relevant regions.
+- Vertical ray tracing may produce multiple intersections and implausible gap measurements.
+- Simplified disc footprints may inadequately represent anatomical morphology.
+- Anatomical interpretation and geometric quality control are essential before mechanical simulation.
+
+The reconstruction and troubleshooting process has been documented, including the diagnostic figures, numerical measurements, methodological limitations and revised modelling strategy.
+
+**[Read the VerSe004 geometry reconstruction and troubleshooting report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/verse004_geometry_reconstruction.md)**
+
+The patient-specific vertebra–disc assembly, volumetric mesh and mechanical simulation remain under development.
 
 ### Current limitations
 
@@ -192,7 +249,9 @@ The remaining peripheral tie failures require further investigation before inter
 
 **[Read the Spinal FEA project report →](projects/spinal-fea.md)**
 
-[Read the interface methodology report →](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/interface_methodology.md)
+[Read the VerSe004 geometry reconstruction and troubleshooting report →](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/verse004_geometry_reconstruction.md)
+
+[Read the baseline vertebra–disc interface methodology →](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/interface_methodology.md)
 
 [Explore the public GitHub repository →](https://github.com/T-Y-Ang/spinal-fea)
 
@@ -226,18 +285,29 @@ The projects are intended as educational and research work and should not be int
 
 The traumatic brain injury outcome prediction and glioma MRI segmentation studies are completed. Exploratory computational demonstrations have also been established for intracranial aneurysm haemodynamics and lumbar spinal biomechanics.
 
-**Current development is focused on validating and extending the spinal finite element analysis workflow.**
+**Current development is focused on patient-specific spinal finite element modelling using CT-derived vertebral anatomy.**
 
-The spinal FEA project has progressed from anatomical mesh preparation to successful baseline compression simulations. Subsequent investigations identified substantial sensitivity of predicted axial stiffness to vertebra–disc interface constraints, highlighting the importance of numerical verification before biomechanical interpretation.
+### Spinal Finite Element Analysis
 
-Initial three-dimensional displacement and von Mises stress visualisations have been completed, including sectional analysis of a localised stress concentration near the vertebral endplate–disc interface.
+The spinal FEA project has progressed through two stages:
 
-The next priorities are axial normal stress (SZZ) visualisation, comparative stress-field analysis between the two tie-tolerance configurations, investigation of potential numerical artefacts, and further assessment of mesh convergence and mechanical reliability.
+1. **Baseline FEA simulation:** Completed simplified L1–L2 axial compression simulations using CalculiX, including investigation of vertebra–disc interface constraints, displacement fields and stress distributions.
+2. **Patient-specific reconstruction:** Reconstructed T12, L1 and L2 from the VerSe004 CT dataset, investigated vertebral endplate geometry and intervertebral spacing, and documented the limitations of several geometric reconstruction methods.
 
-Longer-term objectives include reconstructing pathological vertebral anatomy from publicly available CT datasets and investigating vertebral compression fractures, progressive deformity and potentially the biomechanical consequences of surgical interventions.
+The immediate priority is to develop anatomically informed T12–L1 and L1–L2 intervertebral discs using CT-derived vertebral body contours.
 
-The intracranial aneurysm CFD project is temporarily paused after completing its patient-derived baseline simulation and preliminary haemodynamic visualisations. Further work will be required to resolve outlet-geometry uncertainty, improve mesh quality and establish numerical reliability.
+This will be followed by volumetric meshing, exploratory mechanical simulation and numerical verification.
 
-Future projects may return to EEG seizure detection, intracranial pressure forecasting and other applications of computational methods to neurosurgical research.
+The [VerSe004 technical report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/verse004_geometry_reconstruction.md) documents the reconstruction process, troubleshooting investigations, geometric measurements and outstanding limitations.
 
-Across these projects, the emphasis remains on reproducible computational workflows, transparent reporting of limitations and the distinction between successful numerical simulations and clinically validated models.
+### Intracranial Aneurysm CFD
+
+The intracranial aneurysm CFD project is temporarily paused following completion of a patient-derived baseline simulation and preliminary haemodynamic visualisations.
+
+Further work will be required to resolve outlet-geometry uncertainty, improve mesh quality and establish numerical reliability before physiological interpretation.
+
+### Future Directions
+
+Potential future investigations include longitudinal vertebral compression-fracture analysis, EEG seizure detection, intracranial pressure forecasting and other applications of computational methods to neurosurgical research.
+
+Across these projects, the emphasis remains on reproducible computational workflows, transparent reporting of methodological limitations and the distinction between successful numerical simulations and clinically validated models.
