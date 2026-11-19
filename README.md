@@ -9,17 +9,31 @@ The emphasis is not only on predictive performance or simulation results, but al
 
 ---
 
-## Projects
-
 | Project | Clinical question | Methods | Status |
 |---|---|---|---|
-| **Traumatic Brain Injury Outcome Prediction** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
-| **Glioma MRI Segmentation** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
-| **Intracranial Aneurysm CFD** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **Exploratory — preliminary results; paused** |
-| **Lumbar Spine Finite Element Analysis** | How do vertebra–disc interface constraints and patient-specific vertebral geometry influence simulated spinal biomechanics? | CalculiX, Python, CT-derived 3D reconstruction, tetrahedral FEA, interface sensitivity analysis | **Exploratory — baseline FEA completed; patient-specific geometry reconstruction ongoing** |
+| **[Traumatic Brain Injury Outcome Prediction](projects/tbi-outcome-prediction.md)** | Can early clinical and imaging information predict 90-day functional outcome after TBI? | Logistic regression, Random Forest, XGBoost, SHAP | **Completed** |
+| **[Glioma MRI Segmentation](projects/glioma-mri-segmentation.md)** | Can deep learning segment tumour-related regions on postoperative multimodal glioma MRI? | Multimodal MRI preprocessing, 3D U-Net, Dice-based evaluation, statistical analysis | **Completed** |
+| **[Intracranial Aneurysm CFD](projects/aneurysm-cfd.md)** | How does aneurysm geometry influence local blood-flow patterns and wall shear stress? | OpenFOAM, Gmsh, ParaView, finite-volume simulation | **Exploratory — preliminary results; paused** |
+| **[Lumbar Spine Finite Element Analysis](projects/spinal-fea.md)** | How do vertebra–disc interface constraints and patient-specific vertebral geometry influence simulated spinal biomechanics? | CalculiX, Python, CT-derived 3D reconstruction, tetrahedral FEA, interface sensitivity analysis | **Exploratory — baseline FEA completed; patient-specific geometry reconstruction ongoing** |
 | **EEG Seizure Detection** | Can seizure activity be detected from EEG recordings using signal processing and machine learning? | Signal processing, machine learning, deep learning | **Future project** |
 | **Intracranial Pressure Crisis Forecasting** | Can physiological time-series data provide early warning of intracranial hypertension? | Time-series analysis, machine learning, deep learning | **Future project** |
 
+---
+
+## Research Highlights
+
+The following figures illustrate selected results from four projects spanning clinical prediction, medical image analysis, cerebrovascular haemodynamics and spinal biomechanics.
+
+| Clinical Prediction & Medical Imaging | Computational Haemodynamics & Biomechanics |
+|---|---|
+| **[Traumatic Brain Injury Outcome Prediction](projects/tbi-outcome-prediction.md)** | **[Intracranial Aneurysm CFD](projects/aneurysm-cfd.md)** |
+| ![Comparison of TBI prediction model performance](assets/tbi/model_performance_comparison.png) | ![Patient-derived intracranial aneurysm velocity streamlines](https://raw.githubusercontent.com/T-Y-Ang/aneurysm-cfd/main/outputs/figures/patient_aneurysm_streamlines.png) |
+| Held-out model comparison; best clinical-plus-imaging Random Forest ROC-AUC: **0.854**. | Preliminary patient-derived MCA aneurysm flow visualisation; numerical and physiological validation remain outstanding. |
+| **[Glioma MRI Segmentation](projects/glioma-mri-segmentation.md)** | **[Lumbar Spine Finite Element Analysis](projects/spinal-fea.md)** |
+| ![Postoperative glioma MRI anatomical failure analysis](https://raw.githubusercontent.com/T-Y-Ang/glioma-mri-segmentation/main/outputs/figures/held_out_test_worst_case_reference_anatomy.png) | ![Lumbar spine finite element stress distribution](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/baseline_tolerance_005_max_stress_section.png) |
+| Postoperative MRI segmentation; held-out macro-average Dice: **0.6630** after post-processing. | Baseline L1–L2 simulation demonstrating sensitivity to vertebra–disc interface constraints; biomechanical validation remains outstanding. |
+
+*The CFD and FEA findings are preliminary computational demonstrations and should not be interpreted as clinically validated predictions.*
 
 ---
 
