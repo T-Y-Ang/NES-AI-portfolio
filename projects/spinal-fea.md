@@ -22,6 +22,26 @@ However, the reliability of spinal FEA depends on anatomical geometry, material 
 
 This project investigates the development of a reproducible spinal FEA workflow, beginning with an existing L1–L2 anatomical mesh and simplified axial compression simulations.
 
+## What is finite element analysis?
+
+Finite element analysis (FEA) is a computational method used to predict how a structure deforms and develops internal stresses when subjected to mechanical loading.
+
+Rather than analysing a complex structure as a single object, FEA divides its geometry into thousands of smaller interconnected elements, forming a *mesh*. Mathematical equations describing material deformation and mechanical equilibrium are then solved across these elements.
+
+A typical FEA workflow involves:
+
+1. **Geometry reconstruction:** Creating a three-dimensional model, for example from CT imaging.
+2. **Meshing:** Dividing the geometry into smaller elements, commonly tetrahedra.
+3. **Material assignment:** Defining the mechanical properties of each structure, particularly:
+   - **Young's modulus (E):** Describes a material's stiffness, or resistance to deformation under loading. A higher Young's modulus indicates a stiffer material. For example, cortical bone is substantially stiffer than cancellous bone.
+   - **Poisson's ratio (ν):** Describes how much a material deforms laterally when compressed or stretched. For example, a material with a Poisson's ratio of 0.30 expands laterally by approximately 0.3% when compressed axially by 1% under simple uniaxial loading.
+4. **Boundary conditions:** Specifying applied forces or displacements and how the structure is constrained.
+5. **Simulation and analysis:** Calculating displacement, strain, stress distributions and reaction forces.
+
+In spinal biomechanics, FEA can be used to investigate how loading is transmitted through vertebrae and intervertebral discs, and how changes in anatomy, material properties or surgical interventions may affect mechanical behaviour.
+
+**An important limitation is that numerical convergence does not guarantee physiological accuracy.** The reliability of FEA predictions depends on the underlying anatomical reconstruction, material assumptions, mesh quality, boundary conditions and validation.
+
 ## Study at a glance
 
 | Component | Approach |
@@ -67,7 +87,7 @@ The material properties were selected to establish a simplified, reproducible ba
 
 Published lumbar finite element models commonly distinguish cortical bone, cancellous bone, vertebral endplates, annulus fibrosus and nucleus pulposus, assigning different material properties to each component [1,2].
 
-**Vertebral material properties.** A Young's modulus of 1,000 MPa and Poisson's ratio of 0.30 were assigned uniformly to the vertebral structures. The modulus represents a provisional effective stiffness within a heterogeneous bony structure, rather than a directly measured whole-vertebra property. For comparison, published models have used approximately 100 MPa for cancellous bone and 12,000 MPa for cortical bone [1,2]. The selected Poisson's ratio is consistent with values used for cortical bone in these models, although cancellous bone is often assigned a lower value.
+**Vertebral material properties.** A Young's modulus of 1,000 MPa and Poisson's ratio of 0.30 were assigned uniformly to the vertebral structures as provisional parameters for the baseline computational demonstration. This simplified representation does not distinguish cortical from cancellous bone. For comparison, published lumbar finite element models have assigned substantially different elastic moduli to cancellous and cortical bone, including approximately 100 MPa and 12,000 MPa, respectively [1,2]. The selected modulus of 1,000 MPa was not derived from patient-specific bone density or calibrated against experimental measurements and should not be interpreted as a validated effective modulus of the vertebra. Material-property sensitivity analysis is required to assess its influence on the predicted mechanical response.
 
 **Intervertebral disc properties.** A Young's modulus of 10 MPa and Poisson's ratio of 0.45 were assigned uniformly to the disc. This simplified representation avoids introducing separate nucleus pulposus and annulus fibrosus material regions during initial workflow development. Published models have used an annulus ground-substance modulus of approximately 4.2 MPa with Poisson's ratio 0.45, while representing the nucleus pulposus using substantially softer or nearly incompressible material formulations [1,2]. Our selected modulus is therefore a provisional modelling assumption rather than a literature-validated effective modulus for the entire disc.
 
