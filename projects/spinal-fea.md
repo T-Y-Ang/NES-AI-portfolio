@@ -2,9 +2,9 @@
 
 **Computational biomechanics | Spinal mechanics | Numerical simulation**
 
-**Status:** Exploratory study — baseline compression simulations completed; mechanical validation ongoing  
-**Dataset:** Existing L1–L2 finite element mesh, [Zenodo record 3961334](https://zenodo.org/records/3961334)  
-**Software:** Python · CalculiX 2.21 · SciPy · PyVista · ParaView
+**Status:** Baseline FEA simulations completed; patient-specific CT reconstruction completed; disc reconstruction and patient-specific FEA in progress
+**Datasets:** [Zenodo L1–L2 finite element mesh](https://zenodo.org/records/3961334) · VerSe 2019 (`sub-verse004`)
+**Software:** Python · CalculiX 2.21 · SciPy · PyVista · ParaView · 3D Slicer 5.8.0
 
 [← Back to AI portfolio](../README.md) · [Source-code repository](https://github.com/T-Y-Ang/spinal-fea) · [Validation report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/validation_progress.md)
 
@@ -35,9 +35,44 @@ This project investigates the development of a reproducible spinal FEA workflow,
 | Mechanical loading | Prescribed 0.1 mm axial compression |
 | Interface modelling | Four surface-based vertebra–disc tie constraints |
 | Completed analysis | Baseline compression simulations, force-equilibrium assessment, interface sensitivity analysis, geometric investigation, and displacement and stress-field visualisation |
-| Outstanding work | Mesh convergence, interface refinement, numerical artefact assessment and biomechanical validation |
+| Patient-specific extension | VerSe2019 L1 compression deformity; CT-derived T12–L2 vertebral surface reconstruction completed |
+| Outstanding work | Anatomically guided disc reconstruction, patient-specific FEA, mesh convergence, interface refinement and biomechanical validation |
 
-## What I built
+## Patient-specific extension: VerSe004 L1 compression fracture
+
+Following the baseline finite element simulations, I began extending the workflow to patient-specific pathological spinal anatomy using the publicly available VerSe 2019 CT dataset.
+
+The selected case, `sub-verse004`, demonstrates an L1 vertebral compression deformity. The objective is to reconstruct a T12–L2 spinal segment, including anatomically informed T12–L1 and L1–L2 intervertebral discs, for subsequent investigation of mechanical loading and stress distribution.
+
+### CT-derived vertebral reconstruction
+
+![Patient-specific reconstruction of T12, L1 and L2](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/verse004_t12_l1_l2_alignment.png)
+
+*Figure. Three-dimensional reconstruction of T12, L1 and L2 from VerSe2019 CT segmentation data. The L1 vertebra demonstrates compression deformity. This is an anatomical surface reconstruction, not a completed patient-specific finite element simulation.*
+
+The reconstructed surfaces contain:
+
+| Vertebra | Surface triangles | Enclosed surface volume |
+|---|---:|---:|
+| T12 | 19,928 | 41,165 mm³ |
+| L1 | 24,606 | 38,071 mm³ |
+| L2 | 25,108 | 53,545 mm³ |
+
+These volumes describe the reconstructed vertebral surfaces, including posterior elements, and should not be interpreted as isolated vertebral body volumes or measurements of fracture-related volume loss.
+
+### Anatomical reconstruction challenges
+
+Initial attempts to identify opposing vertebral endplates using surface-normal filtering and vertical ray tracing revealed important limitations. Curved endplates were incompletely selected, while some ray intersections involved posterior elements rather than the intended disc-contact surfaces.
+
+Subsequent axial and sagittal investigations demonstrated that fixed-coordinate cropping could not reliably separate the L1 vertebral body from its posterior elements without either retaining unwanted structures or removing relevant anatomy.
+
+The workflow has therefore progressed to CT-guided anatomical segmentation using 3D Slicer.
+
+**Current status:** CT-derived T12–L2 surface reconstruction is complete. Anatomically guided vertebral-body isolation and intervertebral disc reconstruction remain in progress. Patient-specific volumetric meshing and mechanical simulation have not yet been completed.
+
+[Detailed VerSe004 geometry reconstruction report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/verse004_geometry_reconstruction.md)
+
+## Baseline finite element model and simulations
 
 The initial model was obtained from a publicly available anatomical finite element dataset containing L1, L2 and the intervening intervertebral disc.
 
