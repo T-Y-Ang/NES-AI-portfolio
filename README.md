@@ -151,11 +151,13 @@ The refined-mesh flow simulation and formal sensitivity analyses remain outstand
 
 ## Project 4 — Lumbar Spine Finite Element Analysis
 
-**Status: Exploratory Study — Baseline FEA Completed; Patient-Specific Vertebral Reconstruction Completed; Disc Geometry Development Ongoing**
+**Status: In Progress — Synthetic FEA Proof of Concept Completed; Patient-Derived Modelling Underway**
 
-A computational biomechanics study investigating the mechanical behaviour of the lumbar spine under simplified axial compression, with particular emphasis on vertebra–disc interface modelling.
+An exploratory computational biomechanics study investigating the mechanical behaviour of the lumbar spine under simplified axial compression, with particular emphasis on vertebra–disc interface modelling.
 
-The project uses an existing L1–L2 finite element mesh obtained from a publicly available Zenodo dataset. The anatomical model contains two vertebral bodies and an intervening intervertebral disc.
+The initial proof of concept used an existing L1–L2 anatomical mesh from a publicly available Zenodo dataset. This mesh was converted into a CalculiX-compatible finite element model, allowing the development and testing of structural simulation, interface constraint analysis, and stress/displacement post-processing workflows.
+
+The subsequent phase extends this work towards patient-derived spinal anatomy using CT-based vertebral reconstruction from the VerSe dataset.
 
 ### Key achievements
 
@@ -168,6 +170,12 @@ The project uses an existing L1–L2 finite element mesh obtained from a publicl
 - Developed a Python post-processing workflow to extract nodal displacement vectors and stress tensor components from CalculiX FRD results and convert them into PyVista-compatible datasets.
 - Generated three-dimensional displacement and von Mises stress visualisations, including a cross-sectional investigation of the maximum-stress region.
 - Identified a maximum nodal von Mises stress of **1.579123 MPa** and greatest axial compressive stress (SZZ) of **−1.52658 MPa**, both occurring at node 10200 in the 0.05 mm tie-tolerance simulation.
+
+
+**Principal methodological finding:** Increasing the vertebra–disc tie tolerance from the baseline configuration to 0.05 mm increased the calculated axial stiffness by 40.07%. This demonstrates how assumptions about mechanical coupling between anatomical structures can substantially influence finite element results, even when the underlying geometry and applied loading remain unchanged.
+
+The finding reflects sensitivity to numerical interface constraints and should not be interpreted as a physiological change in spinal stiffness.
+
 
 ### Vertebra–Disc Interface Investigation
 
