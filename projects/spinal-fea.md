@@ -38,40 +38,6 @@ This project investigates the development of a reproducible spinal FEA workflow,
 | Patient-specific extension | VerSe2019 L1 compression deformity; CT-derived T12–L2 vertebral surface reconstruction completed |
 | Outstanding work | Anatomically guided disc reconstruction, patient-specific FEA, mesh convergence, interface refinement and biomechanical validation |
 
-## Patient-specific extension: VerSe004 L1 compression fracture
-
-Following the baseline finite element simulations, I began extending the workflow to patient-specific pathological spinal anatomy using the publicly available VerSe 2019 CT dataset.
-
-The selected case, `sub-verse004`, demonstrates an L1 vertebral compression deformity. The objective is to reconstruct a T12–L2 spinal segment, including anatomically informed T12–L1 and L1–L2 intervertebral discs, for subsequent investigation of mechanical loading and stress distribution.
-
-### CT-derived vertebral reconstruction
-
-![Patient-specific reconstruction of T12, L1 and L2](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/verse004_t12_l1_l2_alignment.png)
-
-*Figure. Three-dimensional reconstruction of T12, L1 and L2 from VerSe2019 CT segmentation data. The L1 vertebra demonstrates compression deformity. This is an anatomical surface reconstruction, not a completed patient-specific finite element simulation.*
-
-The reconstructed surfaces contain:
-
-| Vertebra | Surface triangles | Enclosed surface volume |
-|---|---:|---:|
-| T12 | 19,928 | 41,165 mm³ |
-| L1 | 24,606 | 38,071 mm³ |
-| L2 | 25,108 | 53,545 mm³ |
-
-These volumes describe the reconstructed vertebral surfaces, including posterior elements, and should not be interpreted as isolated vertebral body volumes or measurements of fracture-related volume loss.
-
-### Anatomical reconstruction challenges
-
-Initial attempts to identify opposing vertebral endplates using surface-normal filtering and vertical ray tracing revealed important limitations. Curved endplates were incompletely selected, while some ray intersections involved posterior elements rather than the intended disc-contact surfaces.
-
-Subsequent axial and sagittal investigations demonstrated that fixed-coordinate cropping could not reliably separate the L1 vertebral body from its posterior elements without either retaining unwanted structures or removing relevant anatomy.
-
-The workflow has therefore progressed to CT-guided anatomical segmentation using 3D Slicer.
-
-**Current status:** CT-derived T12–L2 surface reconstruction is complete. Anatomically guided vertebral-body isolation and intervertebral disc reconstruction remain in progress. Patient-specific volumetric meshing and mechanical simulation have not yet been completed.
-
-[Detailed VerSe004 geometry reconstruction report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/verse004_geometry_reconstruction.md)
-
 ## Baseline finite element model and simulations
 
 The initial model was obtained from a publicly available anatomical finite element dataset containing L1, L2 and the intervening intervertebral disc.
@@ -209,6 +175,40 @@ Peripheral disc extension may reflect anatomical geometry rather than an error i
 Consequently, the original mesh geometry was preserved, and further increases in tie tolerance were not adopted as a substitute for resolving the underlying interface modelling uncertainty.
 
 Detailed investigations are documented in the [interface methodology report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/interface_methodology.md).
+
+## Patient-specific extension: VerSe004 L1 compression fracture
+
+Following the baseline finite element simulations, I began extending the workflow to patient-specific pathological spinal anatomy using the publicly available VerSe 2019 CT dataset.
+
+The selected case, `sub-verse004`, demonstrates an L1 vertebral compression deformity. The objective is to reconstruct a T12–L2 spinal segment, including anatomically informed T12–L1 and L1–L2 intervertebral discs, for subsequent investigation of mechanical loading and stress distribution.
+
+### CT-derived vertebral reconstruction
+
+![Patient-specific reconstruction of T12, L1 and L2](https://raw.githubusercontent.com/T-Y-Ang/spinal-fea/main/outputs/figures/verse004_t12_l1_l2_alignment.png)
+
+*Figure. Three-dimensional reconstruction of T12, L1 and L2 from VerSe2019 CT segmentation data. The L1 vertebra demonstrates compression deformity. This is an anatomical surface reconstruction, not a completed patient-specific finite element simulation.*
+
+The reconstructed surfaces contain:
+
+| Vertebra | Surface triangles | Enclosed surface volume |
+|---|---:|---:|
+| T12 | 19,928 | 41,165 mm³ |
+| L1 | 24,606 | 38,071 mm³ |
+| L2 | 25,108 | 53,545 mm³ |
+
+These volumes describe the reconstructed vertebral surfaces, including posterior elements, and should not be interpreted as isolated vertebral body volumes or measurements of fracture-related volume loss.
+
+### Anatomical reconstruction challenges
+
+Initial attempts to identify opposing vertebral endplates using surface-normal filtering and vertical ray tracing revealed important limitations. Curved endplates were incompletely selected, while some ray intersections involved posterior elements rather than the intended disc-contact surfaces.
+
+Subsequent axial and sagittal investigations demonstrated that fixed-coordinate cropping could not reliably separate the L1 vertebral body from its posterior elements without either retaining unwanted structures or removing relevant anatomy.
+
+The workflow has therefore progressed to CT-guided anatomical segmentation using 3D Slicer.
+
+**Current status:** CT-derived T12–L2 surface reconstruction is complete. Anatomically guided vertebral-body isolation and intervertebral disc reconstruction remain in progress. Patient-specific volumetric meshing and mechanical simulation have not yet been completed.
+
+[Detailed VerSe004 geometry reconstruction report](https://github.com/T-Y-Ang/spinal-fea/blob/main/docs/verse004_geometry_reconstruction.md)
 
 ## What I learned
 
